@@ -24,7 +24,7 @@ cp /resources/confd/templates/* /etc/confd/templates/
 # Moving config in place
 cp /resources/confd/conf.d/* /etc/confd/conf.d/
 
-chmod -R 666 /etc/confd
+chown -R tomcat:tomcat /etc/confd
 
 # Downloading pinpoint agent
 curl -L -o /resources/pinpoint.tar.gz \
@@ -37,7 +37,7 @@ mkdir -p /opt/pinpoint/pinpoint-agent
 tar -xz -C /opt/pinpoint/pinpoint-agent -f /resources/pinpoint.tar.gz
 
 # Changing permissions on pinpoint-agent
-chmod -R 665 /opt/pinpoint
+chown -R tomcat:tomcat /opt/pinpoint
 
 # Setup entrypoint
 mv /resources/entrypoint.sh /entrypoint.sh
