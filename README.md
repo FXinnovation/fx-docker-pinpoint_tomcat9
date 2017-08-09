@@ -29,6 +29,8 @@ Where :
 
 | Key | Default Value | Description |
 |-----|:-------------:|-------------|
+|APPLICATION|application_name|Name of you application|
+|ENV|env_name|Name of the environment it runs in|
 |PINPOINT_PROFILER_COLLECTOR_IP|127.0.0.1|Host of the collector|
 |PINPOINT_PROFILER_COLLECTOR_STAT_PORT|9995|STAT port of the collector|
 |PINPOINT_PROFILER_COLLECTOR_SPAN_PORT|9996|SPAN port of the collector|
