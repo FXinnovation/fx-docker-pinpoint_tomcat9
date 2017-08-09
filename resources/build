@@ -44,3 +44,5 @@ mv /resources/entrypoint.sh /entrypoint.sh
 
 # Moving setenv.sh into place
 mv /resources/setenv.sh ${CATALINA_HOME}/bin/setenv.sh
+
+chown -R tomcat:tomcat /usr/local/tomcat
