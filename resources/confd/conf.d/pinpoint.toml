@@ -1,0 +1,4 @@
+[template]
+src  = "pinpoint.config.tmpl"
+dest = '/opt/pinpoint/pinpoint-agent/pinpoint.config'
+keys = []

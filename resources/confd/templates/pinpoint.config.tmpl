@@ -1,0 +1,668 @@
+#
+# Pinpoint agent configuration
+#
+
+###########################################################
+# Collector server                                        # 
+###########################################################
+profiler.collector.ip={{getenv "PINPOINT_PROFILER_COLLECTOR_IP"}}
+
+# placeHolder support "${key}"
+profiler.collector.span.ip=${profiler.collector.ip}
+profiler.collector.span.port={{getenv "PINPOINT_PROFILER_COLLECTOR_SPAN_PORT"}}
+
+# placeHolder support "${key}"
+profiler.collector.stat.ip=${profiler.collector.ip}
+profiler.collector.stat.port={{getenv "PINPOINT_PROFILER_COLLECTOR_STAT_PORT"}}
+
+# placeHolder support "${key}"
+profiler.collector.tcp.ip=${profiler.collector.ip}
+profiler.collector.tcp.port={{getenv "PINPOINT_PROFILER_COLLECTOR_TCP_PORT"}}
+
+###########################################################
+# Profiler Global Configuration                           # 
+###########################################################
+profiler.enable={{getenv "PINPOINT_PROFILER_ENABLE"}}
+
+profiler.interceptorregistry.size={{getenv "PINPOINT_PROFILER_INTERCEPTORREGISTRY_SIZE"}}
+profiler.jvm.collect.interval={{getenv "PINPOINT_PROFILER_JVM_COLLECT_INTERVAL"}}
+
+# Allow to add detailed collector's metrics
+profiler.jvm.collect.detailed.metrics={{getenv "PINPOINT_PROFILER_JVM_COLLECT_DETAILED_METRICS"}}
+
+# Allow sampling.
+profiler.sampling.enable={{getenv "PINPOINT_PROFILER_SAMPLING_ENABLE"}}
+
+# 1 out of n transactions will be sampled where n is the rate. (20: 5%)
+profiler.sampling.rate={{getenv "PINPOINT_PROFILER_SAMPLING_RATE"}}
+
+# Allow buffering when flushing span to IO.
+profiler.io.buffering.enable={{getenv "PINPOINT_PROFILER_IO_BUFFERING_ENABLE"}}
+
+# How many spans to store if buffering enabled.
+profiler.io.buffering.buffersize={{getenv "PINPOINT_PROFILER_IO_BUFFERING_BUFFERSIZE"}}
+
+# Capacity of the SpanDataSender write queue.
+profiler.spandatasender.write.queue.size={{getenv "PINPOINT_PROFILER_SPANDATASENDER_WRITE_QUEUE_SIZE"}}
+{{if ne (getenv "PINPOINT_PROFILER_SPANDATASENDER_SOCKET_SENDBUFFERSIZE") ""}}
+profiler.spandatasender.socket.sendbuffersize={{getenv "PINPOINT_PROFILER_SPANDATASENDER_SOCKET_SENDBUFFERSIZE"}}
+{{end}}
+{{if ne (getenv "PINPOINT_PROFILER_SPANDATASENDER_SOCKET_TIMEOUT") ""}}
+profiler.spandatasender.socket.timeout={{getenv "PINPOINT_PROFILER_SPANDATASENDER_SOCKET_TIMEOUT"}}
+{{end}}
+profiler.spandatasender.chunk.size={{getenv "PINPOINT_PROFILER_SPANDATASENDER_CHUNK_SIZE"}}
+profiler.spandatasender.socket.type={{getenv "PINPOINT_PROFILER_SPANDATASENDER_SOCKET_TYPE"}}
+
+# Capacity of the StatDataSender write queue.
+profiler.statdatasender.write.queue.size={{getenv "PINPOINT_PROFILER_STATDATASENDER_WRITE_QUEUE_SIZE"}}
+{{if ne (getenv "PINPOINT_PROFILER_STATDATASENDER_SOCKET_SENDBUFFERSIZE") ""}}
+profiler.statdatasender.socket.sendbuffersize={{getenv "PINPOINT_PROFILER_STATDATASENDER_SOCKET_SENDBUFFERSIZE"}}
+{{end}}
+{{if ne (getenv "PINPOINT_PROFILER_STATDATASENDER_SOCKET_TIMEOUT") ""}}
+profiler.statdatasender.socket.timeout={{getenv "PINPOINT_PROFILER_STATDATASENDER_SOCKET_TIMEOUT"}}
+{{end}}
+profiler.statdatasender.chunk.size={{getenv "PINPOINT_PROFILER_SPANDATASENDER_CHUNK_SIZE"}}
+profiler.statdatasender.socket.type={{getenv "PINPOINT_PROFILER_SPANDATASENDER_SOCKET_TYPE"}}
+
+# Interval to retry sending agent info. Unit is milliseconds.
+profiler.agentInfo.send.retry.interval={{getenv "PINPOINT_PROFILER_AGENTINFO_SEND_RETRY_INTERVAL"}}
+
+# Allow TCP data command.
+profiler.tcpdatasender.command.accept.enable={{getenv "PINPOINT_PROFILER_TCPDATASENDER_COMMAND_ACCEPT_ENABLE"}}
+profiler.tcpdatasender.command.activethread.enable={{getenv "PINPOINT_PROFILER_TCPDATASENDER_COMMAND_ACTIVETHREAD_ENABLE"}}
+profiler.tcpdatasender.command.activethread.count.enable={{getenv "PINPOINT_PROFILER_TCPDATASENDER_COMMAND_ACTIVETHREAD_COUNT_ENABLE"}}
+profiler.tcpdatasender.command.activethread.threaddump.enable={{getenv "PINPOINT_PROFILER_TCPDATASENDER_COMMAND_ACTIVETHREAD_THREADDUMP_ENABLE"}}
+profiler.tcpdatasender.command.activethread.threadlightdump.enable={{getenv "PINPOINT_PROFILER_TCPDATASENDER_COMMAND_ACTIVETHREAD_THREADLIGHTDUMP_ENABLE"}}
+
+# Trace Agent active thread info.
+profiler.pinpoint.activethread={{getenv "PINPOINT_PROFILER_PINPOINT_ACTIVETHREAD"}}
+
+# Trace DataSource
+profiler.pinpoint.datasource={{getenv "PINPOINT_PROFILER_PINPOINT_DATASOURCE"}}
+
+## Call Stack
+# Set max depth, if -1 is unlimited and min is 2.
+profiler.callstack.max.depth={{getenv "PINPOINT_PROFILER_CALLSTACK_MAX_DEPTH"}}
+
+# weather or not to propagate exceptions occurred at interceptor
+profiler.interceptor.exception.propagate={{getenv "PINPOINT_PROFILER_INTERCEPTOR_EXCEPTION_PROPAGATE"}}
+
+# Allow bytecode framework (JAVASSIST or ASM)
+profiler.instrument.engine={{getenv "PINPOINT_PROFILER_INSTRUMENT_ENGINE"}}
+
+# bytecode dump option
+# java bytecode debug option
+bytecode.dump.enable={{getenv "PINPOINT_BYTECODE_DUMP_ENABLE"}}
+bytecode.dump.classlist={{getenv "PINPOINT_BYTECODE_DUMP_CLASSLIST"}}
+bytecode.dump.bytecode={{getenv "PINPOINT_BYTECODE_DUMP_BYTECODE"}}
+bytecode.dump.verify={{getenv "PINPOINT_BYTECODE_DUMP_VERIFY"}}
+bytecode.dump.asm={{getenv "PINPOINT_BYTECODE_DUMP_ASM"}}
+
+###########################################################
+# application type                                        # 
+###########################################################
+{{if ne (getenv "PINPOINT_PROFILER_APPLICATIONSERVERTYPE") ""}}
+profiler.applicationservertype={{getenv "PINPOINT_PROFILER_APPLICATIONSERVERTYPE"}}
+{{end}}
+
+###########################################################
+# application type detect order                           # 
+###########################################################
+profiler.type.detect.order={{getenv "PINPOINT_PROFILER_TYPE_DETECT_ORDER"}}
+
+profiler.plugin.disable={{getenv "PINPOINT_PROFILER_PLUGIN_DISABLE"}}
+
+###########################################################
+# user defined classes                                    # 
+###########################################################
+# Specify classes and methods you want to profile here.
+
+# Needs to be a comma separated list of fully qualified class names, or fully qualified package names with wild card class.
+profiler.include={{getenv "PINPOINT_PROFILER_INCLUDE"}}
+# Ex: foo.bar.MyClass, foo.baz.*
+
+# Needs to be a comma separated list of fully qualified method names. Wild card not supported.
+profiler.entrypoint={{getenv "PINPOINT_PROFILER_ENTRYPOINT"}}
+# Ex: foo.bar.MyClass.myMethod, foo.bar.MyClass.anotherMethod
+
+###########################################################
+# TOMCAT                                                  #
+###########################################################
+profiler.tomcat.enable={{getenv "PINPOINT_PROFILER_TOMCAT_ENABLE"}}
+# Classes for detecting application server type. Comma separated list of fully qualified class names. Wildcard not supported.
+profiler.tomcat.bootstrap.main={{getenv "PINPOINT_PROFILER_TOMCAT_BOOTSTRAP_MAIN"}}
+# Check pre-conditions when registering class file transformers mainly due to JBoss plugin transforming the same class.
+# Setting this to true currently adds transformers only if the application was launched via org.apache.catalina.startup.Bootstrap,
+# or SpringBoot's launchers.
+# Set this to false to bypass this check entirely (such as when launching standalone applications running embedded Tomcat).
+profiler.tomcat.conditional.transform={{getenv "PINPOINT_PROFILER_TOMCAT_CONDITIONAL_TRANSFORM"}}
+# Hide pinpoint headers.
+profiler.tomcat.hidepinpointheader={{getenv "PINPOINT_PROFILER_TOMCAT_HIDEPINPOINTHEADER"}}
+# URLs to exclude from tracing
+profiler.tomcat.excludeurl={{getenv "PINPOINT_PROFILER_TOMCAT_EXCLUDEURL"}}
+profiler.tomcat.tracerequestparam={{getenv "PINPOINT_PROFILER_TOMCAT_TRACEREQUESTPARAM"}}
+
+# original IP address header
+# https://en.wikipedia.org/wiki/X-Forwarded-For
+{{if ne (getenv "PINPOINT_PROFILER_TOMCAT_REALIPHEADER") ""}}
+profiler.tomcat.realipheader={{getenv "PINPOINT_PROFILER_TOMCAT_REALIPHEADER"}}
+{{end}}
+# optional parameter, If the header value is ${profiler.tomcat.realipemptyvalue}, Ignore header value.
+{{if ne (getenv "PINPOINT_PROFILER_TOMCAT_REALIPEMPTYVALUE") ""}}
+profiler.tomcat.realipemptyvalue={{getenv "PINPOINT_PROFILER_TOMCAT_REALIPEMPTYVALUE"}}
+{{end}}
+
+
+###########################################################
+# JETTY                                                   #
+###########################################################
+profiler.jetty.enable={{getenv "PINPOINT_PROFILER_JETTY_ENABLE"}}
+# Classes for detecting application server type. Comma separated list of fully qualified class names. Wildcard not supported.
+profiler.jetty.bootstrap.main={{getenv "PINPOINT_PROFILER_JETTY_BOOTSTRAP_MAIN"}}
+# URLs to exclude from tracing
+profiler.jetty.excludeurl={{getenv "PINPOINT_PROFILER_JETTY_EXCLUDEURL"}}
+
+
+###########################################################
+# DUBBO                                                   #
+###########################################################
+profiler.dubbo.enable={{getenv "PINPOINT_PROFILER_DUBBO_ENABLE"}}
+# Classes for detecting application server type. Comma separated list of fully qualified class names. Wildcard not supported.
+profiler.dubbo.bootstrap.main={{getenv "PINPOINT_PROFILER_DUBBO_BOOTSTRAP_MAIN"}}
+
+
+###########################################################
+# JBOSS                                                   #
+###########################################################
+profiler.jboss.enable={{getenv "PINPOINT_PROFILER_JBOSS_ENABLE"}}
+# Classes for detecting application server type. Comma separated list of fully qualified class names. Wildcard not supported.
+profiler.jboss.bootstrap.main={{getenv "PINPOINT_PROFILER_JBOSS_BOOTSTRAP_MAIN"}}
+# Check pre-conditions when registering class file transformers mainly due to Tomcat plugin transforming the same class.
+# Setting this to true currently adds transformers only if the application was launched via org.jboss.modules.Main.
+# Set this to false to bypass this check entirely.
+profiler.jboss.conditional.transform={{getenv "PINPOINT_PROFILER_JBOSS_CONDITIONAL_TRANSFORM"}}
+# Hide pinpoint headers.
+profiler.jboss.hidepinpointheader={{getenv "PINPOINT_PROFILER_JBOSS_HIDEPINPOINTHEADER"}}
+# URLs to exclude from tracing
+profiler.jboss.excludeurl={{getenv "PINPOINT_PROFILER_JBOSS_EXCLUDEURL"}}
+# HTTP Request methods to exclude from tracing
+{{if ne ({{getenv "PINPOINT_PROFILER_JBOSS_EXCLUDEMETHOD"}}) ""}}
+profiler.jboss.excludemethod={{getenv "PINPOINT_PROFILER_JBOSS_EXCLUDEMETHOD"}}
+{{end}}
+profiler.jboss.tracerequestparam={{getenv "PINPOINT_PROFILER_JBOSS_TRACEREQUESTPARAM"}}
+
+# original IP address header
+# https://en.wikipedia.org/wiki/X-Forwarded-For
+{{if ne (getenv "PINPOINT_PROFILER_JBOSS_REALIPHEADER") ""}}
+profiler.jboss.realipheader={{getenv "PINPOINT_PROFILER_JBOSS_REALIPHEADER"}}
+{{end}}
+# optional parameter, If the header value is ${profiler.jboss.realipemptyvalue}, Ignore header value.
+{{if ne (getenv "PINPOINT_PROFILER_JBOSS_REALIPEMPTYVALUE") ""}}
+profiler.jboss.realipemptyvalue={{getenv "PINPOINT_PROFILER_JBOSS_REALIPEMPTYVALUE"}}
+{{end}}
+
+###########################################################
+# Vert.x(Reliability and stability can not be guaranteed) #
+###########################################################
+profiler.vertx.enable={{getenv "PINPOINT_PROFILER_VERTX_ENABLE"}}
+# Classes for detecting application server type. Comma separated list of fully qualified class names. Wildcard not supported.
+profiler.vertx.bootstrap.main={{getenv "PINPOINT_PROFILER_VERTX_BOOTSTRAP_MAIN"}}
+# Track Vertx.runOnContext() & Vertx.executeBlocking().
+# Sets the class name that implements io.vertx.core.Handler.
+# Improvement is in progress.
+profiler.vertx.handlers={{getenv "PINPOINT_PROFILER_VERTX_HANDLERS"}}
+
+# HTTP server
+profiler.vertx.http.server.enable={{getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_ENABLE"}}
+profiler.vertx.http.server.tracerequestparam={{getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_TRACEREQUESTPARAM"}}
+# URLs to exclude from tracing
+profiler.vertx.http.server.excludeurl={{getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_EXCLUDEURL"}}
+# original IP address header
+# https://en.wikipedia.org/wiki/X-Forwarded-For
+{{if ne (getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_REALIPHEADER") "" }}
+profiler.vertx.http.server.realipheader={{getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_REALIPHEADER"}}
+{{end}}
+# optional parameter, If the header value is ${profiler.vertx.http.server.realipemptyvalue}, Ignore header value.
+{{if ne (getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_REALIPEMPTYVALUE") ""}}
+profiler.vertx.http.server.realipemptyvalue={{getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_REALIPEMPTYVALUE"}}
+{{end}}
+# HTTP Request methods to exclude from tracing
+{{if ne (getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_EXCLUDEMETHOD") "" }}
+profiler.vertx.http.server.excludemethod={{getenv "PINPOINT_PROFILER_VERTX_HTTP_SERVER_EXCLUDEMETHOD"}}
+{{end}}
+
+# HTTP client
+profiler.vertx.http.client.enable={{getenv "PINPOINT_PROFILER_VERTX_HTTP_CLIENT_ENABLE"}}
+profiler.vertx.http.client.param={{getenv "PINPOINT_PROFILER_VERTX_HTTP_CLIENT_PARAM"}}
+profiler.vertx.http.client.cookie={{getenv "PINPOINT_PROFILER_VERTX_HTTP_CLIENT_COOKIE"}}
+# When to dump cookies. Either ALWAYS or EXCEPTION.
+profiler.vertx.http.client.cookie.dumptype={{getenv "PINPOINT_PROFILER_VERTX_HTTP_CLIENT_COOKIE_DUMPTYPE"}}
+# 1 out of n cookies will be sampled where n is the rate. (1: 100%)
+profiler.vertx.http.client.cookie.sampling.rate={{getenv "PINPOINT_PROFILER_VERTX_HTTP_CLIENT_COOKIE_SAMPLING_RATE"}}
+profiler.vertx.http.client.entity.statuscode={{getenv "PINPOINT_PROFILER_VERTX_HTTP_CLIENT_ENTITY_STATUSCODE"}}
+
+###########################################################
+# SPRING BOOT                                             #
+###########################################################
+profiler.springboot.enable={{getenv "PINPOINT_PROFILER_SPRINGBOOT_ENABLE"}}
+# Classes for detecting application server type. Comma separated list of fully qualified class names. Wildcard not supported.
+profiler.springboot.bootstrap.main={{getenv "PINPOINT_PROFILER_SPRINGBOOT_BOOTSTRAP_MAIN"}}
+
+
+###########################################################
+# JDBC                                                    # 
+###########################################################
+# Profile JDBC drivers.
+profiler.jdbc={{getenv "PINPOINT_PROFILER_JDBC"}}
+# Size of cache. Fixed maximum.
+profiler.jdbc.sqlcachesize={{getenv "PINPOINT_PROFILER_JDBC_SQLCACHESIZE"}}
+# trace bindvalues for PreparedStatements
+profiler.jdbc.tracesqlbindvalue={{getenv "PINPOINT_PROFILER_JDBC_TRACESQLBINDVALUE"}}
+# Maximum bindvalue size.
+profiler.jdbc.maxsqlbindvaluesize={{getenv "PINPOINT_PROFILER_JDBC_MAXSQLBINDVALUESIZE"}}
+
+#
+# MYSQL
+#
+# Profile MySQL.
+profiler.jdbc.mysql={{getenv "PINPOINT_PROFILER_JDBC_MYSQL"}}
+# Allow profiling of setautocommit.
+profiler.jdbc.mysql.setautocommit={{getenv "PINPOINT_PROFILER_JDBC_MYSQL_SETAUTOCOMMIT"}}
+# Allow profiling of commit.
+profiler.jdbc.mysql.commit={{getenv "PINPOINT_PROFILER_JDBC_MYSQL_COMMIT"}}
+# Allow profiling of rollback.
+profiler.jdbc.mysql.rollback={{getenv "PINPOINT_PROFILER_JDBC_MYSQL_ROLLBACK"}}
+# Trace bindvalues for MySQL PreparedStatements (overrides profiler.jdbc.tracesqlbindvalue)
+{{if ne (getenv "PINPOINT_PROFILER_JDBC_MYSQL_TRACESQLBINDVALUE") ""}}
+profiler.jdbc.mysql.tracesqlbindvalue={{getenv "PINPOINT_PROFILER_JDBC_MYSQL_TRACESQLBINDVALUE"}}
+{{end}}
+
+#
+# MARIADB
+#
+# Profile MariaDB
+profiler.jdbc.mariadb={{getenv "PINPOINT_PROFILER_JDBC_MARIADB"}}
+# Allow profiling of setautocommit.
+profiler.jdbc.mariadb.setautocommit={{getenv "PINPOINT_PROFILER_JDBC_MARIADB_SETAUTOCOMMIT"}}
+# Allow profiling of commit.
+profiler.jdbc.mariadb.commit={{getenv "PINPOINT_PROFILER_JDBC_MARIADB_COMMIT"}}
+# Allow profiling of rollback.
+profiler.jdbc.mariadb.rollback={{getenv "PINPOINT_PROFILER_JDBC_MARIADB_ROLLBACK"}}
+# Trace bindvalues for MariaDB PreparedStatements (overrides profiler.jdbc.tracesqlbindvalue)
+{{if ne (getenv "PINPOINT_PROFILER_JDBC_MARIADB_TRACESQLBINDVALUE") ""}}
+profiler.jdbc.mariadb.tracesqlbindvalue={{getenv "PINPOINT_PROFILER_JDBC_MARIADB_TRACESQLBINDVALUE"}}
+{{end}}
+
+#
+# MSSQL Jtds
+#
+# Profile jTDS.
+profiler.jdbc.jtds={{getenv "PINPOINT_PROFILER_JDBC_JTDS"}}
+# Allow profiling of setautocommit.
+profiler.jdbc.jtds.setautocommit={{getenv "PINPOINT_PROFILER_JDBC_JTDS_SETAUTOCOMMIT"}}
+# Allow profiling of commit.
+profiler.jdbc.jtds.commit={{getenv "PINPOINT_PROFILER_JDBC_JTDS_COMMIT"}}
+# Allow profiling of rollback.
+profiler.jdbc.jtds.rollback={{getenv "PINPOINT_PROFILER_JDBC_JTDS_ROLLBACK"}}
+# Trace bindvalues for jTDS PreparedStatements (overrides profiler.jdbc.tracesqlbindvalue)
+{{if ne (getenv "PINPOINT_PROFILER_JDBC_JTDS_TRACESQLBINDVALUE") ""}}
+profiler.jdbc.jtds.tracesqlbindvalue={{getenv "PINPOINT_PROFILER_JDBC_JTDS_TRACESQLBINDVALUE"}}
+{{end}}
+
+#
+# Oracle
+#
+# Profile Oracle DB.
+profiler.jdbc.oracle={{getenv "PINPOINT_PROFILER_JDBC_ORACLE"}}
+# Allow profiling of setautocommit.
+profiler.jdbc.oracle.setautocommit={{getenv "PINPOINT_PROFILER_JDBC_ORACLE_SETAUTOCOMMIT"}}
+# Allow profiling of commit.
+profiler.jdbc.oracle.commit={{getenv "PINPOINT_PROFILER_JDBC_ORACLE_COMMIT"}}
+# Allow profiling of rollback.
+profiler.jdbc.oracle.rollback={{getenv "PINPOINT_PROFILER_JDBC_ORACLE_ROLLBACK"}}
+# Trace bindvalues for Oracle PreparedStatements (overrides profiler.jdbc.tracesqlbindvalue)
+{{if ne (getenv "PINPOINT_PROFILER_JDBC_ORACLE_TRACESQLBINDVALUE") ""}}
+profiler.jdbc.oracle.tracesqlbindvalue={{getenv "PINPOINT_PROFILER_JDBC_ORACLE_TRACESQLBINDVALUE"}}
+{{end}}
+
+#
+# CUBRID
+#
+# Profile CUBRID.
+profiler.jdbc.cubrid={{getenv "PINPOINT_PROFILER_JDBC_CUBRID"}}
+# Allow profiling of setautocommit.
+profiler.jdbc.cubrid.setautocommit={{getenv "PINPOINT_PROFILER_JDBC_CUBRID_SETAUTOCOMMIT"}}
+# Allow profiling of commit.
+profiler.jdbc.cubrid.commit={{getenv "PINPOINT_PROFILER_JDBC_CUBRID_COMMIT"}}
+# Allow profiling of rollback.
+profiler.jdbc.cubrid.rollback={{getenv "PINPOINT_PROFILER_JDBC_CUBRID_ROLLBACK"}}
+# Trace bindvalues for CUBRID PreparedStatements (overrides profiler.jdbc.tracesqlbindvalue)
+{{if ne (getenv "PINPOINT_PROFILER_JDBC_CUBRID_TRACESQLBINDVALUE") ""}}
+profiler.jdbc.cubrid.tracesqlbindvalue={{getenv "PINPOINT_PROFILER_JDBC_CUBRID_TRACESQLBINDVALUE"}}
+{{end}}
+
+#
+# DBCP
+#
+# Profile DBCP.
+profiler.jdbc.dbcp={{getenv "PINPOINT_PROFILER_JDBC_DBCP"}}
+profiler.jdbc.dbcp.connectionclose={{getenv "PINPOINT_PROFILER_JDBC_DBCP_CONNECTIONCLOSE"}}
+
+#
+# DBCP2
+#
+# Profile DBCP2.
+profiler.jdbc.dbcp2={{getenv "PINPOINT_PROFILER_JDBC_DBCP2"}}
+profiler.jdbc.dbcp2.connectionclose={{getenv "PINPOINT_PROFILER_JDBC_DBCP2_CONNECTIONCLOSE"}}
+
+#
+# HIKARICP
+#
+profiler.jdbc.hikaricp={{getenv "PINPOINT_PROFILER_JDBC_HIKARICP"}}
+profiler.jdbc.hikaricp.connectionclose={{getenv "PINPOINT_PROFILER_JDBC_HIKARICP_CONNECTIONCLOSE"}}
+
+#
+# CASSANDRA
+#
+# Profile CASSANDRA.
+profiler.cassandra={{getenv "PINPOINT_PROFILER_CASSANDRA"}}
+# Trace bindvalues for CASSANDRA PreparedStatements (overrides profiler.jdbc.tracesqlbindvalue)
+{{if ne (getenv "PINPOINT_PROFILER_CASSANDRA_TRACECQLBINDVALUE") ""}}
+profiler.cassandra.tracecqlbindvalue={{getenv "PINPOINT_PROFILER_CASSANDRA_TRACECQLBINDVALUE"}}
+{{end}}
+
+#
+# PostgreSQL
+#
+# Profile PostgreSQL.
+profiler.jdbc.postgresql={{getenv "PINPOINT_PROFILER_JDBC_POSTGRESQL"}}
+# Allow profiling of setautocommit.
+profiler.jdbc.postgresql.setautocommit={{getenv "PINPOINT_PROFILER_JDBC_POSTGRESQL_SETAUTOCOMMIT"}}
+# Allow profiling of commit.
+profiler.jdbc.postgresql.commit={{getenv "PINPOINT_PROFILER_JDBC_POSTGRESQL_COMMIT"}}
+# Allow profiling of rollback.
+profiler.jdbc.postgresql.rollback={{getenv "PINPOINT_PROFILER_JDBC_POSTGRESQL_ROLLBACK"}}
+
+
+###########################################################
+# Apache HTTP Client  3.x                                 #
+###########################################################
+# Record Parameter.
+profiler.apache.httpclient3.param={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT3_PARAM"}}
+
+# Record Cookies.
+profiler.apache.httpclient3.cookie={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT3_COOKIE"}}
+
+# When to dump cookies. Either ALWAYS or EXCEPTION.
+profiler.apache.httpclient3.cookie.dumptype={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT3_COOKIE_DUMPTYPE"}}
+# 1 out of n cookies will be sampled where n is the rate. (1: 100%)
+profiler.apache.httpclient3.cookie.sampling.rate={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT3_COOKIE_SAMPLING_RATE"}}
+
+# Dump entities of POST and PUT requests. Limited to entities where HttpEntity.isRepeatable() == true.
+profiler.apache.httpclient3.entity={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT3_ENTITY"}}
+
+# When to dump entities. Either ALWAYS or EXCEPTION.
+profiler.apache.httpclient3.entity.dumptype={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT3_ENTITY_DUMPTYPE"}}
+# 1 out of n entities will be sampled where n is the rate. (10: 10%)
+profiler.apache.httpclient3.entity.sampling.rate={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT3_ENTITY_SAMPLING_RATE"}}
+
+# Record IO time.
+profiler.apache.httpclient3.io={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT3_IO"}}
+
+###########################################################
+# Apache HTTP Client  4.x                                 #
+###########################################################
+# Record Parameter.
+profiler.apache.httpclient4.param={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_PARAM"}}
+
+# Record cookies.
+profiler.apache.httpclient4.cookie={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_COOKIE"}}
+
+# When cookies should be dumped. It could be ALWAYS or EXCEPTION.
+profiler.apache.httpclient4.cookie.dumptype={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_COOKIE_DUMPTYPE"}}
+
+# 1 out of n cookies will be sampled where n is the rate. (1: 100%)
+profiler.apache.httpclient4.cookie.sampling.rate={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_COOKIE_SAMPLING_RATE"}}
+
+# Dump entities of POST and PUT requests. Limited to entities where HttpEntity.isRepeatable() == true.
+profiler.apache.httpclient4.entity={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_ENTITY"}}
+
+# When to dump entities. Either ALWAYS or EXCEPTION.
+profiler.apache.httpclient4.entity.dumptype={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_ENTITY_DUMPTYPE"}}
+
+# 1 out of n entities will be sampled where n is the rate. (10: 10%)
+profiler.apache.httpclient4.entity.sampling.rate={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_ENTITY_SAMPLING_RATE"}}
+
+# Allow profiling status code value.
+profiler.apache.httpclient4.entity.statuscode={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_ENTITY_STATUSCODE"}}
+
+# Record IO time.
+profiler.apache.httpclient4.io={{getenv "PINPOINT_PROFILER_APACHE_HTTPCLIENT4_IO"}}
+
+# Not supported yet.
+#profiler.apache.nio.httpclient4=true
+
+###########################################################
+# JDK HTTPURLConnection                                   #
+###########################################################
+# Profile parameter.
+profiler.jdk.http.param={{getenv "PINPOINT_PROFILER_JDK_HTTP_PARAM"}}
+
+###########################################################
+# Ning Async HTTP Client                                  # 
+###########################################################
+# Profile Ning Async HTTP Client.
+profiler.ning.asynchttpclient={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT"}}
+# Record cookies.
+profiler.ning.asynchttpclient.cookie={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_COOKIE"}}
+# When to dump cookies. Either ALWAYS or EXCEPTION.
+profiler.ning.asynchttpclient.cookie.dumptype={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_COOKIE_DUMPTYPE"}}
+# Cookie dump size.
+profiler.ning.asynchttpclient.cookie.dumpsize={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_COOKIE_DUMPSIZE"}}
+# 1 out of n cookies will be sampled where n is the rate. (1: 100%)
+profiler.ning.asynchttpclient.cookie.sampling.rate={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_COOKIE_SAMPLING_RATE"}}
+# Record Entities.
+profiler.ning.asynchttpclient.entity={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_ENTITY"}}
+# When to dump entities. Either ALWAYS or EXCEPTION.
+profiler.ning.asynchttpclient.entity.dumptype={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_ENTITY_DUMPTYPE"}}
+# Entity dump size.
+profiler.ning.asynchttpclient.entity.dumpsize={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_ENTITY_DUMPSIZE"}}
+# 1 out of n cookies will be sampled where n is the rate. (1: 100%)
+profiler.ning.asynchttpclient.entity.sampling.rate={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_ENTITY_SAMPLING_RATE"}}
+# Record parameters.
+profiler.ning.asynchttpclient.param={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_PARAM"}}
+# When to dump parameters. Either ALWAYS or EXCEPTION.
+profiler.ning.asynchttpclient.param.dumptype={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_PARAM_DUMPTYPE"}}
+# Parameter dump size.
+profiler.ning.asynchttpclient.param.dumpsize={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_PARAM_DUMPSIZE"}}
+# 1 out of n parameters will be sampled where n is the rate. (1: 100%)
+profiler.ning.asynchttpclient.param.sampling.rate={{getenv "PINPOINT_PROFILER_NING_ASYNCHTTPCLIENT_PARAM_SAMPLING_RATE"}}
+
+
+###########################################################
+# Arcus                                                   # 
+###########################################################
+# Profile Arcus.
+profiler.arcus={{getenv "PINPOINT_PROFILER_ARCUS"}}
+# Record keytrace.
+profiler.arcus.keytrace={{getenv "PINPOINT_PROFILER_ARCUS_KEYTRACE"}}
+
+###########################################################
+# Memcached                                               # 
+###########################################################
+# Profile Memecached.
+profiler.memcached={{getenv "PINPOINT_PROFILER_MEMCACHED"}}
+# Record keytrace
+profiler.memcached.keytrace={{getenv "PINPOINT_PROFILER_MEMCACHED_KEYTRACE"}}
+
+###########################################################
+# Thrift                                                  # 
+###########################################################
+# Profile Thrift
+profiler.thrift.client={{getenv "PINPOINT_PROFILER_THRIFT_CLIENT"}}
+profiler.thrift.client.async={{getenv "PINPOINT_PROFILER_THRIFT_CLIENT_ASYNC"}}
+# Profile processor.
+profiler.thrift.processor={{getenv "PINPOINT_PROFILER_THRIFT_PROCESSOR"}}
+profiler.thrift.processor.async={{getenv "PINPOINT_PROFILER_THRIFT_PROCESSOR_ASYNC"}}
+# Allow recording arguments.
+profiler.thrift.service.args={{getenv "PINPOINT_PROFILER_THRIFT_SERVICE_ARGS"}}
+# Allow recording result.
+profiler.thrift.service.result={{getenv "PINPOINT_PROFILER_THRIFT_SERVICE_RESULT"}}
+
+
+###########################################################
+# ibatis                                                  # 
+###########################################################
+# Profile ibatis.
+profiler.orm.ibatis={{getenv "PINPOINT_PROFILER_ORM_IBATIS"}}
+
+###########################################################
+# mybatis                                                 # 
+###########################################################
+# Profile mybatis
+profiler.orm.mybatis={{getenv "PINPOINT_PROFILER_ORM_MYBATIS"}}
+
+###########################################################
+# spring-beans 
+###########################################################
+# Profile spring-beans
+profiler.spring.beans=true
+
+# filters
+#    filter
+#    filter OR filters
+# filter
+#    value
+#    value AND filter
+# value
+#    token
+#    token OR token
+# token
+#    profiler.spring.beans.n.scope= [component-scan | post-processor] default is component-scan.
+#    profiler.spring.beans.n.base-packages= [package name, ...]
+#    profiler.spring.beans.n.name.pattern= [regex pattern, regex:regex pattern, antstyle:antstyle pattern, ...]
+#    profiler.spring.beans.n.class.pattern= [regex pattern, regex:regex pattern, antstyle:antstyle pattern, ...]
+#    profiler.spring.beans.n.annotation= [annotation name, ...]
+#
+# Scope:
+# component-scan: <context:component-scan ... /> or @ComponentScan
+# post-processor: BeanPostProcessor - Slow!!!
+#
+# ANT Style pattern rules:
+# ? - matches on character
+# * - matches zero or more characters
+# ** - matches zero or more 'directories' in a path
+
+# Examples
+# profiler.spring.beans.1.scope=component-scan
+# profiler.spring.beans.1.base-packages=com.foo, com.bar
+# profiler.spring.beans.1.name.pattern=.*Foo, regex:.*Bar, antstyle:*Controller
+# profiler.spring.beans.1.class.pattern=
+# profiler.spring.beans.1.annotation=org.springframework.stereotype.Controller,org.springframework.stereotype.Service,org.springframework.stereotype.Repository
+#
+# profiler.spring.beans.2.scope=post-processor
+# profiler.spring.beans.2.base-packages=com.foo
+# profiler.spring.beans.2.name.pattern=
+# profiler.spring.beans.2.class.pattern=antstyle:com.foo.repository.*Repository, antstyle:com.foo.Service.Main*
+# profiler.spring.beans.2.annotation=
+
+profiler.spring.beans.1.scope=component-scan
+profiler.spring.beans.1.base-packages=
+profiler.spring.beans.1.name.pattern=
+profiler.spring.beans.1.class.pattern=
+profiler.spring.beans.1.annotation=org.springframework.stereotype.Controller,org.springframework.stereotype.Service,org.springframework.stereotype.Repository
+
+profiler.spring.beans.mark.error=false
+###########################################################
+# log4j (guide url : https://github.com/naver/pinpoint/blob/master/doc/per-request_feature_guide.md)
+###########################################################
+profiler.log4j.logging.transactioninfo={{getenv "PINPOINT_PROFILER_LOG4J_LOGGING_TRANSACTIONINFO"}}
+
+###########################################################
+# logback (guide url : https://github.com/naver/pinpoint/blob/master/doc/per-request_feature_guide.md)
+###########################################################
+profiler.logback.logging.transactioninfo={{getenv "PINPOINT_PROFILER_LOGBACK_LOGGING_TRANSACTIONINFO"}}
+
+###########################################################
+# google httpclient 
+###########################################################
+# Profile async.
+profiler.google.httpclient.async={{getenv "PINPOINT_PROFILER_GOOGLE_HTTPCLIENT_ASYNC"}}
+
+###########################################################
+# redis 
+###########################################################
+profiler.redis.pipeline
+profiler.redis={{getenv "PINPOINT_PROFILER_REDIS"}}
+profiler.redis.io={{getenv "PINPOINT_PROFILER_REDIS_IO"}}
+
+###########################################################
+# OkHttp
+###########################################################
+# Record param.
+profiler.okhttp.param={{getenv "PINPOINT_PROFILER_OKHTTP_PARAM"}}
+
+# Record Cookies.
+profiler.okhttp.cookie={{getenv "PINPOINT_PROFILER_OKHTTP_COOKIE"}}
+
+# When to dump cookies. Either ALWAYS or EXCEPTION.
+profiler.okhttp.cookie.dumptype={{getenv "PINPOINT_PROFILER_OKTHHP_COOKIE_DUMPTYPE"}}
+
+# 1 out of n cookies will be sampled where n is the rate. (1: 100%)
+profiler.okhttp.cookie.sampling.rate={{getenv "PINPOINT_PROFILER_OKHTTP_COOKIE_SAMPLING_RATE"}}
+
+profiler.okhttp.async={{getenv "PINPOINT_PROFILER_OKHTTP_ASYNC"}}
+
+###########################################################
+# gson
+###########################################################
+profiler.json.gson={{getenv "PINPOINT_PROFILER_JSON_GSON"}}
+
+###########################################################
+# jackson
+###########################################################
+profiler.json.jackson={{getenv "PINPOINT_PROFILER_JSON_JACKSON"}}
+
+###########################################################
+# json-lib
+###########################################################
+profiler.json.jsonlib={{getenv "PINPOINT_PROFILER_JSON_JSONLIB"}}
+
+###########################################################
+# ActiveMQ Client
+###########################################################
+profiler.activemq.client.enable={{getenv "PINPOINT_PROFILER_ACTIVEMQ_CLIENT_ENABLE"}}
+profiler.activemq.client.producer.enable={{getenv "PINPOINT_PROFILER_ACTIVEMQ_CLIENT_PRODUCER_ENABLE"}}
+profiler.activemq.client.consumer.enable={{getenv "PINPOINT_PROFILER_ACTIVEMQ_CLIENT_CONSUMER_ENABLE"}}
+
+# ActiveMQ destination path separator (default is ".")
+profiler.activemq.client.destination.separator={{getenv "PINPOINT_PROFILER_ACTIVEMQ_CLIENT_DESTINATION_SEPARATOR"}}
+
+# ActiveMQ destinations to exclude from tracing (comma seprated list of ant-matched destinations)
+profiler.activemq.client.destination.exclude={{getenv "PINPOINT_PROFILER_ACTIVEMQ_CLIENT_DESTINATION_EXCLUDE"}}
+
+###########################################################
+# Hystrix
+###########################################################
+profiler.hystrix={{getenv "PINPOINT_PROFILER_HYSTRIX"}}
+
+# Number of anonymous inner classes in HystrixCommand to check and transform. (default is 3 as of 1.5.3)
+profiler.hystrix.command.num.anonymousInnerClass={{getenv "PINPOINT_PROFILER_HYSTRIX_COMMAND_NUM_ANONYMOUSINNERCLASS"}}
+
+###########################################################
+# Resin
+###########################################################
+# default enable resin plugin
+profiler.resin.enable={{getenv "PINPOINT_PROFILER_RESIN_ENABLE"}}
+# if empty , default value is : com.caucho.server.resin.Resin
+profiler.resin.bootstrap.main={{getenv "PINPOINT_PROFILER_RESIN_BOOTSTRAP_MAIN"}}
+# trace param in request  ,default value is true
+profiler.resin.tracerequestparam={{getenv "PINPOINT_PROFILER_RESIN_TRACEREQUESTPARAM"}}
+# excudeurl eg: filter static resources : /**/*.jpg,/**/*.png,/**/*.css,/**/*.js
+profiler.resin.excludeurl={{getenv "PINPOINT_PROFILER_RESIN_EXCLUDEURL"}}
+# trace cookies in request ,default value is true
+profiler.resin.tracecookies={{getenv "PINPOINT_PROFILER_RESIN_TRACECOOKIES"}}
+# cookie.sampling.rate ,default value is 1
+profiler.resin.cookie.sampling.rate={{getenv "PINPOINT_PROFILER_RESIN_COOKIE_SAMPLING_RATE"}}
+# ALWAYS|EXCEPTION ,default value is EXCEPTION
+profiler.resin.cookie.dumptype={{getenv "PINPOINT_PROFILER_RESIN_COOKIE_DUMPTYPE"}}
