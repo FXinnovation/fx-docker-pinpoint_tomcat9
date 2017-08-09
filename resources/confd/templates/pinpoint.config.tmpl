@@ -186,7 +186,7 @@ profiler.jboss.hidepinpointheader={{getenv "PINPOINT_PROFILER_JBOSS_HIDEPINPOINT
 # URLs to exclude from tracing
 profiler.jboss.excludeurl={{getenv "PINPOINT_PROFILER_JBOSS_EXCLUDEURL"}}
 # HTTP Request methods to exclude from tracing
-{{if ne ({{getenv "PINPOINT_PROFILER_JBOSS_EXCLUDEMETHOD"}}) ""}}
+{{if ne (getenv "PINPOINT_PROFILER_JBOSS_EXCLUDEMETHOD") ""}}
 profiler.jboss.excludemethod={{getenv "PINPOINT_PROFILER_JBOSS_EXCLUDEMETHOD"}}
 {{end}}
 profiler.jboss.tracerequestparam={{getenv "PINPOINT_PROFILER_JBOSS_TRACEREQUESTPARAM"}}
